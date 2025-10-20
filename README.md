@@ -1,29 +1,28 @@
-# 🤖 Voice-Control Robot (Software-Only)
+# 🤖 Voice-Control Robot
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
 ![Vosk](https://img.shields.io/badge/SpeechRecognition-Vosk-brightgreen.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Status](https://img.shields.io/badge/Hardware-Coming_Soon-lightgrey.svg)
 ![Made with Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red)
 
 ---
 
 ## 🧭 Overview
-**Voice-Control Robot** is a Python-based **speech recognition system** designed to control a robot using natural voice commands.  
-This version is **software-only**, meaning you can test speech recognition, command parsing, and simulated responses **without any hardware**.
+**Voice-Control Robot** is an intelligent Python-based system that allows a robot to respond to natural **voice commands**.  
+It uses **offline speech recognition** to interpret phrases such as “move forward,” “turn left,” or “stop,”  
+and performs corresponding actions through programmable control logic.
 
-> 🗣️ Speak or type commands such as **“move forward”**, **“turn left”**, or **“stop”** —  
-> and see how your robot would respond in the console!
+This project demonstrates how **speech recognition**, **command processing**, and **robot motion control** can be integrated to create a natural human–robot interaction experience.
 
 ---
 
 ## 🌟 Features
-- 🎙️ Offline **Speech Recognition** powered by [Vosk](https://alphacephei.com/vosk/)
-- 🧩 **Command Mapping System** for action interpretation
-- 🧪 **Mock Mode** for testing without motors or hardware
-- 🗣️ Extendable for **multilingual support** (English + Nepali)
-- 💡 Lightweight, modular design — perfect for beginners in AI & robotics
+- 🎙️ **Offline Speech Recognition** powered by [Vosk](https://alphacephei.com/vosk/)
+- 🧠 **Command Mapping** from speech to actions
+- 🔊 Real-time console feedback for recognized commands
+- 🌐 Extendable for multiple languages
+- ⚡ Lightweight and fast — runs on most computers
 
 ---
 
-## 🧱 Project Structure
+
