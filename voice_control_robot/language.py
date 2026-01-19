@@ -1,20 +1,15 @@
 import pyttsx3
-from langdetect import detect
+import state
 
 engine = pyttsx3.init()
 
 LANGUAGES = {
-    "english": "en",
-    "spanish": "es",
-    "german": "de",
-    "french": "fr",
-    "nepali": "ne"
+    "english": ["english"],
+    "nepali": ["nepali", "nepalese"]
 }
 
-selected_language = None
-
 COMMAND_MAP = {
-    "en": {
+    "english": {
         "start": "start",
         "stop": "stop",
         "move forward": "move forward",
@@ -23,7 +18,7 @@ COMMAND_MAP = {
         "move right": "move right",
         "power off": "power off",
     },
-    "ne": {
+    "nepali": {
         "सुरु": "start",
         "रोक": "stop",
         "अगाडि": "move forward",
@@ -35,34 +30,37 @@ COMMAND_MAP = {
 }
 
 def speak(msg):
+    if state.selected_language == "nepali":
+        return  # silent mode for Nepali
     engine.say(msg)
     engine.runAndWait()
 
+
 def select_language(listen_fn):
-    global selected_language
     speak("Please say a language")
 
-    while selected_language is None:
+    while True:
         cmd = listen_fn()
         if not cmd:
-            speak("Try again")
+            speak("Please try again")
             continue
 
-        for name, code in LANGUAGES.items():
-            if name in cmd:
-                selected_language = code
-                speak(f"Language set to {name}")
+        cmd = cmd.lower()
+        print("Language heard:", cmd)
+
+        for lang, keywords in LANGUAGES.items():
+            if any(word in cmd for word in keywords):
+                state.selected_language = lang
+                speak(f"Language set to {lang}")
+                print("Language set to:", lang)
                 return
 
         speak("Language not recognized")
 
 def normalize_command(command):
-    if not selected_language:
-        return command
-
     command = command.lower()
 
-    for spoken, mapped in COMMAND_MAP.get(selected_language, {}).items():
+    for spoken, mapped in COMMAND_MAP.get(state.selected_language, {}).items():
         if spoken in command:
             return mapped
 

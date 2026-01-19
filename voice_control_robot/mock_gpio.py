@@ -11,7 +11,6 @@ class MockGPIO:
         print(f"[MockGPIO] Mode set to {mode}")
 
     def setwarnings(self, state):
-        # Raspberry Pi compatibility
         pass
 
     def setup(self, pin, mode):
@@ -20,7 +19,7 @@ class MockGPIO:
 
     def output(self, pin, state):
         self.pins[pin] = state
-        print(f"[MockGPIO] Pin {pin} → {'HIGH' if state else 'LOW'}")
+        print(f"[MockGPIO] Pin {pin} = {'HIGH' if state else 'LOW'}")
 
     def cleanup(self):
         print("[MockGPIO] Cleanup")

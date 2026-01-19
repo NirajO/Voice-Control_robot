@@ -29,7 +29,7 @@ def move_backward():
   GPIO.output(23, GPIO.HIGH)
   speak("Moving backward")
 
-def trun_left():
+def turn_left():
   GPIO.output(17, GPIO.LOW)
   GPIO.output(18, GPIO.HIGH)
   GPIO.output(22, GPIO.LOW)
