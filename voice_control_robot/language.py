@@ -1,3 +1,5 @@
+from translator import translate_to_english
+from langdetect import detect
 import pyttsx3
 import state
 
@@ -5,7 +7,11 @@ engine = pyttsx3.init()
 
 LANGUAGES = {
     "english": ["english"],
-    "nepali": ["nepali", "nepalese"]
+    "nepali": ["nepali", "nepalese"],
+    "chinese": ["chinese", "mandarin"],
+    "hindi": ["hindi"],
+    "spanish": ["spanish"],
+    "arabic": ["arabic"]
 }
 
 COMMAND_MAP = {
@@ -58,10 +64,27 @@ def select_language(listen_fn):
         speak("Language not recognized")
 
 def normalize_command(command):
-    command = command.lower()
+    command = translate_to_english(command, state.selected_language)
 
     for spoken, mapped in COMMAND_MAP.get(state.selected_language, {}).items():
         if spoken in command:
             return mapped
 
     return command
+
+def auto_detect_language(text):
+    try:
+        lang = detect(text)
+    except:
+        return None
+    
+    MAP = {
+        "en": "english",
+        "zh-cn": "chinese",
+        "zh-tw": "chinese",
+        "hi": "hindi",
+        "es": "spanish",
+        "ar": "arabic"
+    }
+
+    return MAP.get(lang)
