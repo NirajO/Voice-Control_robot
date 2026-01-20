@@ -56,5 +56,5 @@ def listen():
         if text in ("uh", "um", "a", "i", "it", "is", "the"):
           continue
 
-        print("Heard:", text)
+        print("Heard: [offline speech recognized]")
         return text

@@ -1,5 +1,5 @@
 from offline_voice import listen
-from language import select_language, normalize_command, auto_detect_language
+from language import normalize_command, auto_detect_language
 import robot_control as robot
 import state
 import sys
@@ -38,7 +38,6 @@ def get_confirmation():
 
 def main():
     robot.setup_gpio()
-    select_language(listen)
 
     robot.speak("Robot ready. Say hey robot to begin.")
     print("[Robot] Waiting for wake word...")
@@ -49,16 +48,15 @@ def main():
     try:
         while True:
             command = listen()
-            if not awake:
-               if "robot" not in command:
-                  continue
-            command = normalize_command(command)
+            
             if not language_locked:
                detected = auto_detect_language(command)
                if detected:
                   state.selected_language = detected
                   language_locked = True
                   print(f"[Robot] Language detected: {detected}")
+
+            command = normalize_command(command)
             
             if not command:
                 continue
@@ -69,7 +67,9 @@ def main():
                     awake = True
                     robot.speak("Yes?")
                     print(" Wake word detected")
-                continue
+                    continue
+                else:
+                  continue
 
             if command == "start":
               robot.speak("Robot activated")
@@ -87,28 +87,16 @@ def main():
                  robot.speak("Power off cancelled")
 
             elif "forward" in command:
-              if get_confirmation():
-                robot.move_forward()
-              else:
-                robot.speak("Command cancelled.")
+              robot.move_forward()
 
             elif "backward" in command:
-              if get_confirmation():
-                robot.move_backward()
-              else:
-                robot.speak("Command cancelled.")
-
+              robot.move_backward()
+              
             elif "left" in command:
-              if get_confirmation():
                 robot.turn_left()
-              else:
-                robot.speak("Command cancelled.")
 
             elif "right" in command:
-              if get_confirmation():
                 robot.turn_right()
-              else:
-                robot.speak("Command cancelled.")
 
             else:
               robot.speak("Command not recognized")

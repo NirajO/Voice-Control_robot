@@ -66,10 +66,6 @@ def select_language(listen_fn):
 def normalize_command(command):
     command = translate_to_english(command, state.selected_language)
 
-    for spoken, mapped in COMMAND_MAP.get(state.selected_language, {}).items():
-        if spoken in command:
-            return mapped
-
     return command
 
 def auto_detect_language(text):
